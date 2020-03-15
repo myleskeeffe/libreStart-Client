@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { map } from "rxjs/operators";
-
+import { GlobalConstants } from './common/global-constants';
 
 import { fromEventPattern } from 'rxjs';
 var IDToken = "";
@@ -15,14 +15,14 @@ export class UserService {
 
   }
 
-  getTodos(){
+  getUser(userID){
 
     return new Promise((resolve, reject) => {
 
       let headers = new Headers();
       headers.append('Authorization', "fixme");
 
-      this.http.get('https://YOUR_HEROKU_APP.herokuapp.com/api/todos', {headers: { Authorization: IDToken}})
+      this.http.get(GlobalConstants.apiURL + "/api/user/users/" + JSON.stringify(userID), {headers: { Authorization: IDToken}})
         .subscribe(data => {
           resolve(data);
         }, (err) => {
@@ -40,7 +40,7 @@ export class UserService {
       headers.append('Content-Type', 'application/json');
       headers.append('Authorization', "fixme");
 
-      this.http.post('https://YOUR_HEROKU_APP.herokuapp.com/api/todos', JSON.stringify(todo), {headers: { Authorization: IDToken}})
+      this.http.post(GlobalConstants.apiURL, JSON.stringify(todo), {headers: { Authorization: IDToken}})
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -58,7 +58,7 @@ export class UserService {
         let headers = new Headers();
         headers.append('Authorization', "fixme");
 
-        this.http.delete('https://YOUR_HEROKU_APP.herokuapp.com/api/todos/' + id, {headers: { Authorization: IDToken}}).subscribe((res) => {
+        this.http.delete(GlobalConstants.apiURL + id, {headers: { Authorization: IDToken}}).subscribe((res) => {
             resolve(res);
         }, (err) => {
             reject(err);
