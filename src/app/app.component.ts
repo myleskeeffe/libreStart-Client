@@ -10,7 +10,19 @@ export class AppComponent {
   title = 'libreStart-Client';
   serverUrl = 'http://localhost:8080/';
 
+
+  constructor(private broadcastService: BroadcastService, private authService: MsalService) {}
+
+
+ ngOnInit() {
   
+  
+}
+
+ngOnDestroy() {
+ 
+}
+
   
 }
 
